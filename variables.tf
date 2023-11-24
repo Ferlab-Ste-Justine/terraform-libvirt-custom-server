@@ -1,0 +1,86 @@
+variable "name" {
+  description = "Name to give to the vm"
+  type = string
+}
+
+variable "vcpus" {
+  description = "Number of vcpus to assign to the vm"
+  type        = number
+  default     = 2
+}
+
+variable "memory" {
+  description = "Amount of memory in MiB"
+  type        = number
+  default     = 8192
+}
+
+variable "volume_ids" {
+  description = "Id of disk volumes to attach to the vm"
+  type        = list(string)
+}
+
+variable "libvirt_networks" {
+  description = "Parameters of libvirt network connections if a libvirt networks are used."
+  type = list(object({
+    network_name = string
+    network_id = string
+    prefix_length = string
+    ip = string
+    mac = string
+    gateway = string
+    dns_servers = list(string)
+  }))
+  default = []
+}
+
+variable "macvtap_interfaces" {
+  description = "List of macvtap interfaces."
+  type        = list(object({
+    interface = string,
+    prefix_length = number,
+    ip = string,
+    mac = string,
+    gateway = string,
+    dns_servers = list(string),
+  }))
+  default = []
+}
+
+variable "cloud_init_volume_pool" {
+  description = "Name of the volume pool that will contain the cloud init volume"
+  type        = string
+}
+
+variable "cloud_init_volume_name" {
+  description = "Name of the cloud init volume"
+  type        = string
+  default = ""
+}
+
+variable "ssh_admin_user" { 
+  description = "Pre-existing ssh admin user of the image"
+  type        = string
+  default     = "ubuntu"
+}
+
+variable "admin_user_password" { 
+  description = "Optional password for admin user"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "ssh_admin_public_key" {
+  description = "Public ssh part of the ssh key the admin will be able to login as"
+  type        = string
+}
+
+variable "cloud_init_configurations" {
+  description = "List of cloud-init configurations to add to the vm"
+  type        = list(object({
+    filename = string
+    content  = string
+  }))
+  default = []
+}
