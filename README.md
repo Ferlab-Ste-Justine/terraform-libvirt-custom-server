@@ -13,7 +13,10 @@ From there, it takes plain cloud-init parts as an argument for customizability t
 
 ## Input Variables
 
-- **name**: Name to give to the vm. Will be the hostname.
+- **name**: Name to give to the vm. Will be the hostname by default as well.
+- **hostname**: Used to give the vm an internal hostname that is different from the vm's name. It takes the following fields:
+  - **hostname**: Hostname to give to the vm
+  - **is_fqdn**: Boolean indicating whether the hostname is a fully qualified domain name or not.
 - **vcpus**: Number of vcpus to assign to the vm. Defaults to 2.
 - **memory**: Amount of memory in MiB to assign to the vm. Defaults to 8192.
 - **volume_ids**: Id of the volumes to attach to the vm. The first volume should be an os volume. Any additional volumes should be formatted by additional cloud-init logic passed as an argument if they are not already formatted.
