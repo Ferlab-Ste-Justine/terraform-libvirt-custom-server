@@ -18,6 +18,7 @@ locals {
       hostname = null
     }]
   )
+  hostname = var.hostname.hostname != "" ? var.hostname.hostname : var.name
 }
 
 module "network_configs" {
@@ -50,7 +51,8 @@ locals {
         content = templatefile(
           "${path.module}/files/user_data.yaml.tpl", 
           {
-            hostname = var.name
+            hostname = local.hostname
+            is_fqdn = var.hostname.is_fqdn
             ssh_admin_public_key = var.ssh_admin_public_key
             ssh_admin_user = var.ssh_admin_user
             admin_user_password = var.admin_user_password

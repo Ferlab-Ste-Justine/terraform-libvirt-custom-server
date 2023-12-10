@@ -84,3 +84,15 @@ variable "cloud_init_configurations" {
   }))
   default = []
 }
+
+variable "hostname" {
+  description = "Value to assign to the hostname. If left to empty default, name varialbe will be used."
+  type        = object({
+    hostname = string
+    is_fqdn  = string
+  })
+  default = {
+    hostname = ""
+    is_fqdn  = false
+  }
+}
