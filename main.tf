@@ -117,7 +117,8 @@ resource "libvirt_domain" "vm" {
     }
   }
 
-  autostart = true
+  running = var.running
+  autostart = var.autostart
 
   cloudinit = libvirt_cloudinit_disk.vm.id
 

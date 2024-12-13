@@ -86,7 +86,7 @@ variable "cloud_init_configurations" {
 }
 
 variable "hostname" {
-  description = "Value to assign to the hostname. If left to empty default, name varialbe will be used."
+  description = "Value to assign to the hostname. If left to empty (default), 'name' variable will be used."
   type        = object({
     hostname = string
     is_fqdn  = string
@@ -95,4 +95,16 @@ variable "hostname" {
     hostname = ""
     is_fqdn  = false
   }
+}
+
+variable "running" {
+  description = "Whether the vm should be running or stopped"
+  type        = bool
+  default     = true
+}
+
+variable "autostart" {
+  description = "Whether the vm should start on host boot up"
+  type        = bool
+  default     = true
 }

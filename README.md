@@ -41,6 +41,8 @@ From there, it takes plain cloud-init parts as an argument for customizability t
 - **admin_user_password**: Optional password for the default sudo user of the image. Note that this will not enable ssh password connections, but it will allow you to log into the vm from the host using the **virsh console** command.
 - **ssh_admin_public_key**: Public part of the ssh key the admin will be able to login as
 - **cloud_init_configurations**: List of additional parts of cloud-init configuration. Each entry in the list should have a **filename** field that should be unique and meaningful as to the purpose of the cloud-init part and they should have a **content** field that should contain the content of the cloud-init part.
+- **running**: Whether the vm should be running or stopped. Defaults to **true**.
+- **autostart**: Whether the vm should start on host boot up. Defaults to **true**.
 
 ## Example of a custom cloud-init part
 
