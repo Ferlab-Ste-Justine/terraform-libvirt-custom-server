@@ -43,6 +43,12 @@ From there, it takes plain cloud-init parts as an argument for customizability t
 - **cloud_init_configurations**: List of additional parts of cloud-init configuration. Each entry in the list should have a **filename** field that should be unique and meaningful as to the purpose of the cloud-init part and they should have a **content** field that should contain the content of the cloud-init part.
 - **running**: Whether the vm should be running or stopped. Defaults to **true**.
 - **autostart**: Whether the vm should start on host boot up. Defaults to **true**.
+- **extra_users**: List of extra ssh users to add to the vm.
+- **chrony**: Optional chrony configuration for when you need a more fine-grained ntp setup on your vm. It is an object with the following fields:
+  - **enabled**: If set the false (the default), chrony will not be installed and the vm ntp settings will be left to default.
+  - **servers**: List of ntp servers to sync from with each entry containing two properties, **url** and **options** (see: https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#server)
+  - **pools**: A list of ntp server pools to sync from with each entry containing two properties, **url** and **options** (see: https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#pool)
+  - **makestep**: An object containing remedial instructions if the clock of the vm is significantly out of sync at startup. It is an object containing two properties, **threshold** and **limit** (see: https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#makestep).
 
 ## Example of a custom cloud-init part
 
