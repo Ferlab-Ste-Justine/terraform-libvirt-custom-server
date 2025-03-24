@@ -56,6 +56,8 @@ locals {
             ssh_admin_public_key = var.ssh_admin_public_key
             ssh_admin_user = var.ssh_admin_user
             admin_user_password = var.admin_user_password
+            chrony               = var.chrony
+            extra_users          = var.extra_users
           }
         )
       }
