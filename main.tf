@@ -134,4 +134,16 @@ resource "libvirt_domain" "vm" {
     target_type = "virtio"
     target_port = "1"
   }
+
+  dynamic "xml" {
+    for_each = length(var.gpus) > 0 ? [var.gpus] : []
+    content {
+      xslt = templatefile(
+        "${path.module}/files/devices.xslt.tpl",
+        {
+          gpus = xml.value
+        }
+      )
+    }
+  }
 }

@@ -108,3 +108,13 @@ variable "autostart" {
   type        = bool
   default     = true
 }
+
+variable "gpus" {
+  description = "List of gpus"
+  type = list(object({
+    domain   = string
+    bus      = string
+    function = string
+  }))
+  default = []
+}
