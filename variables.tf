@@ -76,6 +76,37 @@ variable "ssh_admin_public_key" {
   type        = string
 }
 
+variable "chrony" {
+  description = "Chrony configuration for ntp. If enabled, chrony is installed and configured, else the default image ntp settings are kept"
+  type = object({
+    enabled = bool,
+    //https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#server
+    servers = list(object({
+      url     = string,
+      options = list(string)
+    })),
+    //https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#pool
+    pools = list(object({
+      url     = string,
+      options = list(string)
+    })),
+    //https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#makestep
+    makestep = object({
+      threshold = number,
+      limit     = number
+    })
+  })
+  default = {
+    enabled = false
+    servers = []
+    pools   = []
+    makestep = {
+      threshold = 0,
+      limit     = 0
+    }
+  }
+}
+
 variable "cloud_init_configurations" {
   description = "List of cloud-init configurations to add to the vm"
   type        = list(object({
@@ -105,6 +136,12 @@ variable "running" {
 
 variable "autostart" {
   description = "Whether the vm should start on host boot up"
+  type        = bool
+  default     = true
+}
+
+variable "install_dependencies" {
+  description = "Whether to install dependencies in cloud-init"
   type        = bool
   default     = true
 }
