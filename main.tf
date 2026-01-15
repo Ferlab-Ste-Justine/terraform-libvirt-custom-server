@@ -43,16 +43,6 @@ module "network_configs" {
   )
 }
 
-module "chrony_configs" {
-  source               = "git::https://github.com/Ferlab-Ste-Justine/terraform-cloudinit-templates.git//chrony?ref=v0.50.0"
-  install_dependencies = var.install_dependencies
-  chrony = {
-    servers  = var.chrony.servers
-    pools    = var.chrony.pools
-    makestep = var.chrony.makestep
-  }
-}
-
 locals {
   cloudinit_templates = concat([
       {
@@ -70,11 +60,6 @@ locals {
         )
       }
     ],
-    var.chrony.enabled ? [{
-      filename     = "chrony.cfg"
-      content_type = "text/cloud-config"
-      content      = module.chrony_configs.configuration
-    }] : [],
     [for cloud_init_configuration in var.cloud_init_configurations: {
       filename     = cloud_init_configuration.filename
       content_type = "text/cloud-config"

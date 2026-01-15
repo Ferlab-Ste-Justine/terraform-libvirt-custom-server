@@ -40,15 +40,9 @@ From there, it takes plain cloud-init parts as an argument for customizability t
 - **ssh_admin_user**: Username of the default sudo user in the image. Defaults to **ubuntu**.
 - **admin_user_password**: Optional password for the default sudo user of the image. Note that this will not enable ssh password connections, but it will allow you to log into the vm from the host using the **virsh console** command.
 - **ssh_admin_public_key**: Public part of the ssh key the admin will be able to login as
-- **chrony**: Optional chrony configuration for when you need a more fine-grained ntp setup on your vm. It is an object with the following fields:
-  - **enabled**: If set to false (the default), chrony will not be installed and the vm ntp settings will be left to default.
-  - **servers**: List of ntp servers to sync from with each entry containing two properties, **url** and **options** (see: https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#server)
-  - **pools**: A list of ntp server pools to sync from with each entry containing two properties, **url** and **options** (see: https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#pool)
-  - **makestep**: An object containing remedial instructions if the clock of the vm is significantly out of sync at startup. It is an object containing two properties, **threshold** and **limit** (see: https://chrony.tuxfamily.org/doc/4.2/chrony.conf.html#makestep)
 - **cloud_init_configurations**: List of additional parts of cloud-init configuration. Each entry in the list should have a **filename** field that should be unique and meaningful as to the purpose of the cloud-init part and they should have a **content** field that should contain the content of the cloud-init part.
 - **running**: Whether the vm should be running or stopped. Defaults to **true**.
 - **autostart**: Whether the vm should start on host boot up. Defaults to **true**.
-- **install_dependencies**: Whether to install dependencies in cloud-init. Defaults to **true**.
 
 ## Example of a custom cloud-init part
 
